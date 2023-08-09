@@ -4,7 +4,7 @@ const Movie = require("../models/Movie.model.js")
 const Celebrity = require("../models/Celebrity.model.js")
 // all your routes here
 
-// Display form to create a new movie
+// Display movie
 router.get("/create", async (req, res) => {
     try {
       const celebrities = await Celebrity.find();
@@ -15,7 +15,7 @@ router.get("/create", async (req, res) => {
     }
   });
   
-  // Handle creation of a new movie
+  
   router.post("/create", async (req, res) => {
     try {
       const { title, genre, plot, cast } = req.body;
@@ -31,6 +31,17 @@ router.get("/create", async (req, res) => {
       res.render("error", { errorMessage: "Error creating movie" });
     }
   });
+
+  router.get("/", async (req, res, next) => {
+    try {
+        
+      const movies = await Movie.find()
+      res.render("movies/movies.hbs", { movies });
+    } catch (error) {
+     
+    }
+  });
+  
   
 
 module.exports = router;
